@@ -14,7 +14,6 @@ import java.time.format.DateTimeFormatter;
 @Getter
 @Setter
 @Entity
-@Table(name="ARTICLE")
 public class Article {
     @Id
     @GeneratedValue
