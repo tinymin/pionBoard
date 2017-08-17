@@ -20,9 +20,10 @@ import java.time.format.DateTimeFormatter;
 public class Comment {
     @Id
     @GeneratedValue
+    @Column(name="COMMENT_ID")
     private Long id;
 
-    @Column
+    @Column(name="ARTICLE_ID")
     private Long article_id;
 
     @Column

@@ -13,6 +13,8 @@ import pionnet.model.Comment;
 import pionnet.service.ArticleService;
 import pionnet.service.CommentService;
 
+import java.util.List;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class PionboardApplicationTests {
@@ -55,5 +57,25 @@ public class PionboardApplicationTests {
 		Comment comment = cs.getComment(1L);
 
 		Assert.assertEquals("댓글입니다", comment.getContent());
+	}
+
+	@Test
+	public void 글에코멘트달기테스트() throws Exception {
+		ArticleCreateRequest createReq = new ArticleCreateRequest("제목1", "내용1", "작성자1");
+		as.createArticle(createReq);
+
+		CommentCreateRequest ccr = new CommentCreateRequest(1L, "코멘트1", "작성자1");
+		cs.createComment(ccr);
+        CommentCreateRequest ccr2 = new CommentCreateRequest(1L, "코멘트2", "작성자1");
+		cs.createComment(ccr2);
+
+		Article article = as.getArticle(1L);
+        List<Comment> comments = article.getComments();
+
+		Assert.assertEquals("제목1", article.getTitle());
+		Assert.assertEquals("내용1", article.getContents());
+		Assert.assertEquals(2, comments.size());
+		Assert.assertEquals("코멘트1", comments.get(0).getContent());
+		Assert.assertEquals("코멘트2", comments.get(1).getContent());
 	}
 }
