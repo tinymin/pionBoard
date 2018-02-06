@@ -52,6 +52,14 @@ public class PionboardApplicationTests {
 
 	@Test
 	public void 댓글쓰기테스트() throws Exception {
+		ArticleCreateRequest createReq = new ArticleCreateRequest("제목1", "내용1", "작성자1");
+		as.createArticle(createReq);
+		Article article = as.getArticle(1L);
+
+		Assert.assertEquals("제목1", article.getTitle());
+		Assert.assertEquals("내용1", article.getContents());
+
+
 		CommentCreateRequest createRequest = new CommentCreateRequest(1L, "댓글입니다", "작성자1");
 		cs.createComment(createRequest);
 		Comment comment = cs.getComment(1L);
